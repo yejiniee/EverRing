@@ -2,13 +2,12 @@
 
 import { useFormContext } from "react-hook-form";
 
-import { FormValues } from "@customTypes/form";
-import { emailPattern } from "@constants/validationPatterns";
 import Button from "@components/common/Button";
 import InputForm from "@components/common/InputForm";
+import { FormValues } from "@customTypes/form";
+import useDebouncedValidation from "@features/auth/hooks/useDebouncedValidation";
 import useSignin from "@features/auth/hooks/useSignin";
 import handleSigninMutationError from "@features/auth/utils/handleMutationError";
-import useDebouncedValidation from "@features/auth/hooks/useDebouncedValidation";
 
 export default function SigninForm() {
   const {
@@ -16,7 +15,6 @@ export default function SigninForm() {
     handleSubmit,
     setError,
     formState: { errors, isValid },
-    trigger,
   } = useFormContext<FormValues>();
 
   useDebouncedValidation("email");
@@ -43,9 +41,7 @@ export default function SigninForm() {
           labelTextSize="sm"
           placeholder="아이디를 입력하세요"
           register={register}
-          rules={{ required: "아이디를 입력해주세요", pattern: emailPattern }}
           errors={errors}
-          onBlur={() => trigger("email")}
         />
         <InputForm
           name="password"
@@ -55,11 +51,7 @@ export default function SigninForm() {
           type="password"
           placeholder="비밀번호를 입력하세요"
           register={register}
-          rules={{
-            required: "비밀번호를 입력해주세요",
-          }}
           errors={errors}
-          onBlur={() => trigger("password")}
         />
       </div>
       <Button

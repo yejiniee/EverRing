@@ -1,6 +1,6 @@
 import AuthPageContainer from "@features/auth/components/AuthPageContainer";
-import AuthFormProvider from "@features/auth/components/AuthFormProvider";
 import SigninForm from "@features/auth/components/SigninForm";
+import SigninFormProvider from "@features/auth/components/SigninFormProvider";
 
 export default function Signin() {
   return (
@@ -9,9 +9,9 @@ export default function Signin() {
       description="에버링이 처음이신가요?"
       linkText="회원가입"
     >
-      <AuthFormProvider>
+      <SigninFormProvider>
         <SigninForm />
-      </AuthFormProvider>
+      </SigninFormProvider>
     </AuthPageContainer>
   );
 }

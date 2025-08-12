@@ -1,16 +1,15 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import { FormValues } from "@customTypes/form";
-import { emailPattern, passwordPattern } from "@constants/validationPatterns";
+import AlertModal from "@components/common/AlertModal";
 import Button from "@components/common/Button";
 import InputForm from "@components/common/InputForm";
+import ModalPortal from "@components/common/ModalPortal";
+import { FormValues } from "@customTypes/form";
+import useDebouncedValidation from "@features/auth/hooks/useDebouncedValidation";
 import useSignup from "@features/auth/hooks/useSignup";
 import handleAuthMutationError from "@features/auth/utils/handleMutationError";
-import AlertModal from "@components/common/AlertModal";
-import ModalPortal from "@components/common/ModalPortal";
 import useModalStore from "@stores/modalStore";
-import useDebouncedValidation from "@features/auth/hooks/useDebouncedValidation";
+import { useFormContext } from "react-hook-form";
 
 export default function SignupForm() {
   const {
@@ -18,8 +17,6 @@ export default function SignupForm() {
     handleSubmit,
     setError,
     formState: { errors, isValid },
-    trigger,
-    watch,
   } = useFormContext<FormValues>();
 
   useDebouncedValidation("email");
@@ -55,9 +52,7 @@ export default function SignupForm() {
             labelTextSize="sm"
             placeholder="이름을 입력해주세요"
             register={register}
-            rules={{ required: "이름을 입력해주세요" }}
             errors={errors}
-            onBlur={() => trigger("name")}
           />
           <InputForm
             name="email"
@@ -67,9 +62,7 @@ export default function SignupForm() {
             labelTextSize="sm"
             placeholder="아이디를 입력해주세요"
             register={register}
-            rules={{ required: "아이디를 입력해주세요", pattern: emailPattern }}
             errors={errors}
-            onBlur={() => trigger("email")}
           />
           <InputForm
             name="companyName"
@@ -79,9 +72,7 @@ export default function SignupForm() {
             labelTextSize="sm"
             placeholder="직업 혹은 소속을 입력해주세요"
             register={register}
-            rules={{ required: "직업 혹은 소속을 입력해주세요" }}
             errors={errors}
-            onBlur={() => trigger("companyName")}
           />
           <InputForm
             name="password"
@@ -91,12 +82,7 @@ export default function SignupForm() {
             type="password"
             placeholder="비밀번호를 입력해주세요"
             register={register}
-            rules={{
-              required: "비밀번호를 입력해주세요",
-              pattern: passwordPattern,
-            }}
             errors={errors}
-            onBlur={() => trigger("password")}
           />
           <InputForm
             name="passwordConfirm"
@@ -106,13 +92,7 @@ export default function SignupForm() {
             type="password"
             placeholder="비밀번호를 입력해주세요"
             register={register}
-            rules={{
-              required: "비밀번호를 다시 한 번 입력해주세요",
-              validate: (value: string) =>
-                value === watch("password") || "비밀번호가 일치하지 않습니다.",
-            }}
             errors={errors}
-            onBlur={() => trigger("passwordConfirm")}
           />
         </div>
         <Button
