@@ -1,10 +1,9 @@
-import { InputFormProps } from "@customTypes/form";
 import Input from "@components/common/Input";
+import { InputFormProps } from "@customTypes/form";
 
 export default function InputForm({
   name,
   register,
-  rules,
   errors,
   ...props
 }: InputFormProps) {
@@ -16,7 +15,7 @@ export default function InputForm({
       <Input
         name={name}
         isInvalid={isInvalid}
-        {...(register && register(name, rules))}
+        {...(register && register(name))}
         {...props}
       />
       {isInvalid && (
