@@ -1,6 +1,6 @@
 import AuthPageContainer from "@features/auth/components/AuthPageContainer";
-import AuthFormProvider from "@features/auth/components/AuthFormProvider";
 import SignupForm from "@features/auth/components/SignupForm";
+import SignupFormProvider from "@features/auth/components/SignupFormProvider";
 
 export default function Signup() {
   return (
@@ -9,9 +9,9 @@ export default function Signup() {
       description="이미 회원이신가요?"
       linkText="로그인"
     >
-      <AuthFormProvider>
+      <SignupFormProvider>
         <SignupForm />
-      </AuthFormProvider>
+      </SignupFormProvider>
     </AuthPageContainer>
   );
 }
